@@ -85,5 +85,38 @@ namespace FundooNotesApp.Controllers
             }
         }
 
+        [Authorize]
+        [HttpPost("UpdateNotes")]
+        public IActionResult UpdateNotes(notesModel note, long NoteID)
+        {
+            try
+            {
+                var result = notesBL.UpdateNotes(note, NoteID);
+                if (result != null)
+                {
+                    return this.Ok(new
+                    {
+                        success = true,
+                        message = "Notes Updated Successfully",
+                        data = result
+                    });
+
+                }
+                else
+                {
+                    return this.BadRequest(new
+                    {
+                        success = false,
+                        message = "Notes Update Unsuccessfull",
+
+                    });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
         }
     }
+}
