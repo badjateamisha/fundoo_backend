@@ -1,0 +1,15 @@
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\Businesslayer.deps.json
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\Businesslayer.dll
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\Businesslayer.pdb
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\CommonLayer.dll
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\RepositoryLayer.dll
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\RepositoryLayer.pdb
+C:\Users\amisha\source\repos\Businesslayer\bin\Debug\netcoreapp3.1\CommonLayer.pdb
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.csproj.AssemblyReference.cache
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.AssemblyInfoInputs.cache
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.AssemblyInfo.cs
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.csproj.CoreCompileInputs.cache
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.csproj.CopyComplete
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.dll
+C:\Users\amisha\source\repos\Businesslayer\obj\Debug\netcoreapp3.1\Businesslayer.pdb

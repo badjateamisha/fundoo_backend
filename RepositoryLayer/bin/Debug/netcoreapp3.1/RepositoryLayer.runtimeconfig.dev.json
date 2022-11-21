@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\amisha\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\amisha\\.nuget\\packages"
+    ]
+  }
+}
