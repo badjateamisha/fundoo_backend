@@ -10,5 +10,7 @@ namespace Businesslayer.Interface
     {
         public NotesEntity AddNotes(notesModel note, long UserID);
 
+        public IEnumerable<NotesEntity> ReadNotes(long userId);
+
     }
 }
