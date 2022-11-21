@@ -56,5 +56,34 @@ namespace FundooNotesApp.Controllers
 
             }
 
+        [Authorize]
+        [HttpPost("ReadNotes")]
+        public IActionResult ReadNotes()
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = notesBL.ReadNotes(userId);
+                if (result != null)
+                {
+                    return Ok(new 
+                    {
+                        success = true, 
+                        message = "Notes Received: ", 
+                        data = result 
+                    });
+                }
+                return BadRequest(new 
+                {
+                    success = false, 
+                    message = "Error in receiving notes!" 
+                });
+            }
+            catch(System.Exception)
+            {
+                throw;
+            }
+        }
+
         }
     }
