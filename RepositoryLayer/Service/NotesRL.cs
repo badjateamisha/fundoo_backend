@@ -132,17 +132,42 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.NotesTable.Where(x => x.UserId == userId && x.NoteID == NoteID).FirstOrDefault(); ;
+                var output = fundooContext.NotesTable.Where(x => x.UserId == userId && x.NoteID == NoteID).FirstOrDefault(); 
 
-                if (result.Archive == true)
+                if (output.Archive == true)
                 {
-                    result.Archive = false;
+                    output.Archive = false;
                     fundooContext.SaveChanges();
                     return false;
                 }
                 else
                 {
-                    result.Archive = true;
+                    output.Archive = true;
+                    fundooContext.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool Pin(long userId, long NoteID)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.Where(x => x.UserId == userId && x.NoteID == NoteID).FirstOrDefault(); ;
+
+                if (result.Pin == true)
+                {
+                    result.Pin = false;
+                    fundooContext.SaveChanges();
+                    return false;
+                }
+                else
+                {
+                    result.Pin = true;
                     fundooContext.SaveChanges();
                     return true;
                 }
