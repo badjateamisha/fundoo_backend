@@ -227,5 +227,42 @@ namespace FundooNotesApp.Controllers
                 throw;
             }
         }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Trash")]
+        public IActionResult Trash(long NoteID)
+        {
+            try
+            {
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = notesBL.Trash(userID, NoteID);
+                if (result == true)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Note Trashed Successfully"
+                    });
+                }
+                else if (result == false)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Note Untrashed successfully."
+                    });
+                }
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Task unsuccessful."
+                });
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
     }
 }
