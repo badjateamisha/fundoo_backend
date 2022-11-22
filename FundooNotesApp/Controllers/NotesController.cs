@@ -21,7 +21,7 @@ namespace FundooNotesApp.Controllers
             }
 
             [Authorize]
-            [HttpPost("Addnotes")]
+            [HttpPost("Add")]
             public IActionResult AddNotes(notesModel note)
             {
                 try
@@ -57,7 +57,7 @@ namespace FundooNotesApp.Controllers
             }
 
         [Authorize]
-        [HttpPost("ReadNotes")]
+        [HttpPost("Read")]
         public IActionResult ReadNotes()
         {
             try
@@ -86,7 +86,7 @@ namespace FundooNotesApp.Controllers
         }
 
         [Authorize]
-        [HttpPost("UpdateNotes")]
+        [HttpPost("Update")]
         public IActionResult UpdateNotes(notesModel note, long NoteID)
         {
             try
@@ -121,7 +121,7 @@ namespace FundooNotesApp.Controllers
         }
 
         [Authorize]
-        [HttpPost("DeleteNotes")]
+        [HttpPost("Delete")]
         public IActionResult DeleteNotes(long NoteID)
         {
             try
@@ -154,6 +154,41 @@ namespace FundooNotesApp.Controllers
                 throw;
             }
 
+        }
+
+        [HttpPut]
+        [Route("Archive")]
+        public IActionResult Archive(long NoteID)
+        {
+            try
+            {
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = notesBL.Archive(NoteID, userID);
+                if (result == true)
+                {
+                    return Ok(new 
+                    {
+                        success = true,
+                        message = "Note Archived successfully" 
+                    });
+                }
+                else if (result == false)
+                {
+                    return Ok(new 
+                    {
+                        success = true, 
+                        message = "Note UnArchived successfully." 
+                    });
+                }
+                return BadRequest(new 
+                {
+                    success = false, 
+                    message = "Task unsuccessful" });
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
         }
     }
 }
