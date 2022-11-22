@@ -21,5 +21,7 @@ namespace Businesslayer.Interface
         public bool Pin(long userId, long NoteID);
 
         public bool Trash(long userId, long NoteID);
+
+        public NotesEntity Color(long NoteID, string color);
     }
 }
