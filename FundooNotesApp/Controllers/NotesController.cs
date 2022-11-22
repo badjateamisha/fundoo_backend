@@ -91,6 +91,7 @@ namespace FundooNotesApp.Controllers
         {
             try
             {
+
                 var result = notesBL.UpdateNotes(note, NoteID);
                 if (result != null)
                 {
@@ -114,6 +115,42 @@ namespace FundooNotesApp.Controllers
             }
             catch (System.Exception)
             {
+                throw;
+            }
+
+        }
+
+        [Authorize]
+        [HttpPost("DeleteNotes")]
+        public IActionResult DeleteNotes(long NoteID)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = notesBL.DeleteNotes(userId,NoteID);
+                if (result != false)
+                {
+                    return this.Ok(new
+                    {
+                        success = true,
+                        message = "Notes Deleted Successfully",
+
+                    });
+
+                }
+                else
+                {
+                    return this.BadRequest(new
+                    {
+                        success = false,
+                        message = "Unable to delete Note.",
+
+                    });
+                }
+            }
+            catch (System.Exception)
+            {
+
                 throw;
             }
 

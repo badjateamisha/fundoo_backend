@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.Context;
 using RepositoryLayer.Entity;
@@ -97,6 +98,29 @@ namespace RepositoryLayer.Service
 
                 return null;
 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool DeleteNotes(long userId,long NoteID)
+        {
+            try
+            {
+                var result = fundooContext.NotesTable.Where(x => x.UserId == userId && x.NoteID == NoteID).FirstOrDefault(); ;
+
+                if (result != null)
+                {
+                    fundooContext.Remove(result);
+                    this.fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception)
             {
