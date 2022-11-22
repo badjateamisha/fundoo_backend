@@ -88,5 +88,17 @@ namespace Businesslayer.Service
                 throw;
             }
         }
+
+        public bool Trash(long userId, long NoteID)
+        {
+            try
+            {
+                return noteRL.Trash(userId, NoteID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
