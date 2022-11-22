@@ -15,9 +15,9 @@ namespace FundooNotesApp.Controllers
         
             INotesBL notesBL;
 
-            public NotesController(INotesBL iNotesBL)
+            public NotesController(INotesBL notesBL)
             {
-                this.notesBL = iNotesBL;
+                this.notesBL = notesBL;
             }
 
             [Authorize]
@@ -156,6 +156,7 @@ namespace FundooNotesApp.Controllers
 
         }
 
+        [Authorize]
         [HttpPut]
         [Route("Archive")]
         public IActionResult Archive(long NoteID)
@@ -163,8 +164,8 @@ namespace FundooNotesApp.Controllers
             try
             {
                 long userID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
-                var result = notesBL.Archive(NoteID, userID);
-                if (result == true)
+                var output = notesBL.Archive(userID, NoteID);
+                if (output == true)
                 {
                     return Ok(new 
                     {
@@ -172,7 +173,7 @@ namespace FundooNotesApp.Controllers
                         message = "Note Archived successfully" 
                     });
                 }
-                else if (result == false)
+                else if (output == false)
                 {
                     return Ok(new 
                     {
@@ -184,6 +185,42 @@ namespace FundooNotesApp.Controllers
                 {
                     success = false, 
                     message = "Task unsuccessful" });
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [Authorize]
+        [HttpPut]
+        [Route("Pin")]
+        public IActionResult Pin(long NoteID)
+        {
+            try
+            {
+                long userID = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = notesBL.Pin(userID, NoteID);
+                if (result == true)
+                {
+                    return Ok(new 
+                    {
+                        success = true, 
+                        message = "Note Pinned Successfully" 
+                    });
+                }
+                else if (result == false)
+                {
+                    return Ok(new 
+                    {
+                        success = true, 
+                        message = "Note Unpinned successfully." 
+                    });
+                }
+                return BadRequest(new 
+                {
+                    success = false, 
+                    message = "Task unsuccessful." });
             }
             catch (System.Exception)
             {
