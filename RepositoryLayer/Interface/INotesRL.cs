@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Model;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
@@ -23,5 +24,7 @@ namespace RepositoryLayer.Interface
         public bool Trash(long userId, long NoteID);
 
         public NotesEntity Color(long NoteID, string color);
+
+        public string Image(IFormFile image, long NoteID, long userID);
     }
 }
