@@ -9,5 +9,7 @@ namespace RepositoryLayer.Interface
     public interface ICollabRL
     {
         public CollaboratorEntity AddCollaborator(collaboratorModel collab, long UserID, long NoteId);
+
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID, long NoteID);
     }
 }

@@ -54,5 +54,42 @@ namespace FundooNotesApp.Controllers
             }
 
         }
+
+        [Authorize]
+        [HttpPost("Read")]
+        public IActionResult ReadCollaborator(long NoteID)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = collabBL.ReadCollaborator(userId, NoteID);
+                if (result != null)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Collaborator for this note are: ",
+                        data = result
+                    });
+                }
+                else if(result == null)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "No collaborators added "
+                    });
+                }
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Error in reading collaborators!"
+                });
+            }
+            catch (System.Exception)
+            { 
+                throw;
+            }
+        }
     }
 }

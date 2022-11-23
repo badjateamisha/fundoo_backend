@@ -5,6 +5,7 @@ using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RepositoryLayer.Service
@@ -47,5 +48,22 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID,long NoteID)
+        {
+            try
+            {
+                var result = this.fundooContext.CollaboratorTable.Where(e => e.UserId == UserID);
+                return result;
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
+
     }
 }
