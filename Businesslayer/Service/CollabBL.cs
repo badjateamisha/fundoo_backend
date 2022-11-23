@@ -27,5 +27,17 @@ namespace Businesslayer.Service
                 return null;
             }
         }
+
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID, long NoteID)
+        {
+            try
+            {
+                return collabRL.ReadCollaborator(UserID,NoteID);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
     }
 }
