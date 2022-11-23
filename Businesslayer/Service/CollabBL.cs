@@ -24,7 +24,7 @@ namespace Businesslayer.Service
             }
             catch (Exception)
             {
-                return null;
+                throw;
             }
         }
 
@@ -36,7 +36,19 @@ namespace Businesslayer.Service
             }
             catch (Exception)
             {
-                return null;
+                throw;
+            }
+        }
+
+        public bool DeleteCollaborator(long userId, long NoteID, long CollaboratorId)
+        {
+            try
+            {
+                return collabRL.DeleteCollaborator(userId, NoteID, CollaboratorId);
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }

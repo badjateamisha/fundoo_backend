@@ -65,5 +65,28 @@ namespace RepositoryLayer.Service
 
         }
 
+        public bool DeleteCollaborator(long userId, long NoteID, long CollaboratorId)
+        {
+            try
+            {
+                var result = fundooContext.CollaboratorTable.Where(x => x.UserId == userId && x.NoteID == NoteID && x.CollaboratorID == CollaboratorId).FirstOrDefault(); ;
+
+                if (result != null)
+                {
+                    fundooContext.Remove(result);
+                    this.fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
     }
 }
