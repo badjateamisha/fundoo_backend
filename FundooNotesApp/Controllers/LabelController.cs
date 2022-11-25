@@ -110,7 +110,40 @@ namespace FundooNotesApp.Controllers
             {
                 throw;
             }
-
         }
-    }
+
+        [HttpPost("Delete")]
+        public IActionResult DeleteLabel(long LabelID)
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = labelBL.DeleteLabel(userId, LabelID);
+                if (result != false)
+                {
+                    return this.Ok(new
+                    {
+                        success = true,
+                        message = "Label Deleted Successfully",
+
+                    });
+
+                }
+                else
+                {
+                    return this.BadRequest(new
+                    {
+                        success = false,
+                        message = "Unable to delete Label.",
+
+                    });
+                }
+            }
+            catch (System.Exception)
+            {
+
+                throw;
+            }
+        }
+        }
 }

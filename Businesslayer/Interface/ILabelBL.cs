@@ -13,5 +13,7 @@ namespace Businesslayer.Interface
         public IEnumerable<LabelEntity> ReadLabel(long UserID);
 
         public LabelEntity UpdateLabel(string name, long NoteID);
+
+        public bool DeleteLabel(long userId, long LabelId);
     }
 }
