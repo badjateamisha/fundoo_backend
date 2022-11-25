@@ -1,4 +1,5 @@
 ﻿using Businesslayer.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -8,6 +9,7 @@ namespace FundooNotesApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class LabelController : ControllerBase
     {
         private readonly ILabelBL labelBL;
@@ -41,6 +43,34 @@ namespace FundooNotesApp.Controllers
                         message = "Create Label Unsuccessful!"
                     });
                 }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost("Read")]
+        public IActionResult ReadLabel()
+        {
+            try
+            {
+                long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
+                var result = labelBL.ReadLabel(userId);
+                if (result != null)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Label Received: ",
+                        data = result
+                    });
+                }
+                return BadRequest(new
+                {
+                    success = false,
+                    message = "Error in receiving labels!"
+                });
             }
             catch (System.Exception)
             {
