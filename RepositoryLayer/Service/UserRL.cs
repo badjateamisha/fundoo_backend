@@ -34,7 +34,7 @@ namespace RepositoryLayer.Service
                 userEntity.FirstName = User.FirstName;
                 userEntity.LastName = User.LastName;
                 userEntity.Email = User.Email;
-                userEntity.Password = User.Password;
+                userEntity.Password = Encryption(User.Password);
 
                 fundooContext.UserTable.Add(userEntity);
                 int result = fundooContext.SaveChanges();
@@ -59,15 +59,15 @@ namespace RepositoryLayer.Service
         {
             try
             {
-                var result = fundooContext.UserTable.FirstOrDefault(u => u.Email == loginModel.Email && u.Password == loginModel.Password);
-                if (result == null)
-                {
-                    return null;
-                }
-                else
+                var result = fundooContext.UserTable.FirstOrDefault(u => u.Email == loginModel.Email);
+                if (result != null && Decryption(result.Password) == loginModel.Password)
                 {
                     var token = GenerateSecurityToken(result.Email, result.UserId);
                     return token;
+                }
+                else
+                {
+                    return null;
                 }
             }
             catch (Exception)
@@ -141,6 +141,31 @@ namespace RepositoryLayer.Service
             {
                     throw;
             }
+        }
+
+        public string Encryption(string password)
+        {
+            string Key = "bridgelabz@123456789123456789";
+            if (string.IsNullOrEmpty(password))
+            {
+                return "";
+            }
+            password += Key;
+            var passwordBytes = Encoding.UTF8.GetBytes(password);
+            return Convert.ToBase64String(passwordBytes);
+        }
+
+        public static string Decryption(string encryptedPass)
+        {
+            string Key = "bridgelabz@123456789123456789";
+            if (string.IsNullOrEmpty(encryptedPass))
+            {
+                return "";
+            }
+            var encodeBytes = Convert.FromBase64String(encryptedPass);
+            var result = Encoding.UTF8.GetString(encodeBytes);
+            result = result.Substring(0, result.Length - Key.Length);
+            return result;
         }
 
     }
