@@ -40,5 +40,26 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public IEnumerable<LabelEntity> ReadLabel(long UserID)
+        {
+            try
+            {
+                var result = this.fundooContext.LabelTable.Where(e => e.UserId == UserID);
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                    return null;
+            }
+
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Businesslayer.Interface;
+using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
 using System.Collections.Generic;
@@ -27,5 +28,16 @@ namespace Businesslayer.Service
             }
         }
 
+        public IEnumerable<LabelEntity> ReadLabel( long UserID)
+        {
+            try
+            {
+                return labelRL.ReadLabel( UserID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
