@@ -52,5 +52,17 @@ namespace Businesslayer.Service
                 throw;
             }
         }
+
+        public bool DeleteLabel(long userId, long LabelId)
+        {
+            try
+            {
+                return labelRL.DeleteLabel(userId, LabelId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

@@ -83,5 +83,28 @@ namespace RepositoryLayer.Service
                 throw;
             }
         }
+
+        public bool DeleteLabel(long userId, long LabelId)
+        {
+            try
+            {
+                var result = fundooContext.LabelTable.Where(x => x.UserId == userId && x.LabelID == LabelId).FirstOrDefault(); ;
+
+                if (result != null)
+                {
+                    fundooContext.Remove(result);
+                    this.fundooContext.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }
