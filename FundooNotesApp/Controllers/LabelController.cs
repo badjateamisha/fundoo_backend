@@ -1,4 +1,5 @@
 ﻿using Businesslayer.Interface;
+using CommonLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -76,6 +77,40 @@ namespace FundooNotesApp.Controllers
             {
                 throw;
             }
+        }
+
+        [HttpPost("Update")]
+        public IActionResult UpdateLabel(string name, long NoteID)
+        {
+            try
+            {
+
+                var result = labelBL.UpdateLabel(name, NoteID);
+                if (result != null)
+                {
+                    return this.Ok(new
+                    {
+                        success = true,
+                        message = "Label Updated Successfully",
+                        data = result
+                    });
+
+                }
+                else
+                {
+                    return this.BadRequest(new
+                    {
+                        success = false,
+                        message = "Label Update Unsuccessfull",
+
+                    });
+                }
+            }
+            catch (System.Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

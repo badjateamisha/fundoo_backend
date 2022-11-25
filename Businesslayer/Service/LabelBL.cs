@@ -1,4 +1,5 @@
 ﻿using Businesslayer.Interface;
+using CommonLayer.Model;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interface;
 using System;
@@ -33,6 +34,18 @@ namespace Businesslayer.Service
             try
             {
                 return labelRL.ReadLabel( UserID);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public LabelEntity UpdateLabel(string name, long NoteID)
+        {
+            try
+            {
+                return labelRL.UpdateLabel(name,NoteID);
             }
             catch (Exception)
             {
