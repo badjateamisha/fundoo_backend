@@ -3,6 +3,9 @@ using CommonLayer.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using RepositoryLayer.Context;
 using System;
 using System.Linq;
 
@@ -15,9 +18,16 @@ namespace FundooNotesApp.Controllers
         
             INotesBL notesBL;
 
-            public NotesController(INotesBL notesBL)
+    /*    private readonly IMemoryCache memoryCache;
+        private readonly IDistributedCache distributedCache;
+        private readonly FundooContext fundooContext;*/
+
+        public NotesController(INotesBL notesBL/*, IMemoryCache memoryCache, IDistributedCache distributedCache, FundooContext fundooContext*/)
             {
                 this.notesBL = notesBL;
+               /* this.memoryCache = memoryCache;
+            this.distributedCache = distributedCache;
+            this.fundooContext = fundooContext;*/
             }
 
             [Authorize]
