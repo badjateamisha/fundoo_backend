@@ -184,7 +184,8 @@ namespace FundooNotesApp.Controllers
                 return BadRequest(new 
                 {
                     success = false, 
-                    message = "Task unsuccessful" });
+                    message = "Task unsuccessful"
+                });
             }
             catch (System.Exception)
             {

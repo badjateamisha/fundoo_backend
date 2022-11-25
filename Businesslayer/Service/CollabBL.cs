@@ -28,11 +28,11 @@ namespace Businesslayer.Service
             }
         }
 
-        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID, long NoteID)
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID)
         {
             try
             {
-                return collabRL.ReadCollaborator(UserID,NoteID);
+                return collabRL.ReadCollaborator(UserID);
             }
             catch (Exception)
             {
