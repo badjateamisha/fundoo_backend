@@ -14,16 +14,14 @@ namespace RepositoryLayer.Service
     {
         FundooContext fundooContext;
 
-        private readonly IConfiguration config;
-
-        public CollabRL(FundooContext fundooContext, IConfiguration config)
+        
+        public CollabRL(FundooContext fundooContext)
 
         {
             this.fundooContext = fundooContext;
-            this.config = config;
         }
 
-        public CollaboratorEntity AddCollaborator(collaboratorModel collab, long UserID, long NoteId)
+        public CollaboratorEntity AddCollaborator(collaboratorModel  collab,long UserID, long NoteId)
         {
             try
             {
@@ -49,12 +47,17 @@ namespace RepositoryLayer.Service
             }
         }
 
-        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID,long NoteID)
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID)
         {
             try
             {
                 var result = this.fundooContext.CollaboratorTable.Where(e => e.UserId == UserID);
-                return result;
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                    return null;
             }
 
             catch (Exception)

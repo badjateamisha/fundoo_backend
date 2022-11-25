@@ -10,7 +10,7 @@ namespace RepositoryLayer.Interface
     {
         public CollaboratorEntity AddCollaborator(collaboratorModel collab, long UserID, long NoteId);
 
-        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID, long NoteID);
+        public IEnumerable<CollaboratorEntity> ReadCollaborator(long UserID);
 
         public bool DeleteCollaborator(long userId, long NoteID, long CollaboratorId);
     }

@@ -56,14 +56,14 @@ namespace FundooNotesApp.Controllers
         }
 
         [Authorize]
-        [HttpPost("Read")]
-        public IActionResult ReadCollaborator(long NoteID)
+        [HttpGet("Read")]
+        public IActionResult ReadCollaborator()
         {
             try
             {
                 long userId = Convert.ToInt32(User.Claims.FirstOrDefault(e => e.Type == "UserID").Value);
-                var result = collabBL.ReadCollaborator(userId, NoteID);
-                if (result != null)
+                var result = collabBL.ReadCollaborator(userId);
+                /*if (result != null)
                 {
                     return Ok(new
                     {
@@ -72,19 +72,30 @@ namespace FundooNotesApp.Controllers
                         data = result
                     });
                 }
-                else if(result == null)
-                {
-                    return Ok(new
-                    {
-                        success = true,
-                        message = "No collaborators added "
-                    });
-                }
+                else
                 return BadRequest(new
                 {
                     success = false,
                     message = "Error in reading collaborators!"
-                });
+                });*/
+
+                if(result != null)
+                {
+                    return Ok(new
+                    {
+                        success = true,
+                        message = "Collaborator are:",
+                        data = result
+                    });
+                }
+                else
+                {
+                    return BadRequest(new
+                    {
+                        success = false,
+                        message = "Error"
+                    });
+                }
             }
             catch (System.Exception)
             { 
