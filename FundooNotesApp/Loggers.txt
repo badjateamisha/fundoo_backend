@@ -1,0 +1,2 @@
+﻿2022-11-29 09:52:41.3812|INFO|FundooNotesApp.NLog|User logged in successfully
+2022-11-29 09:58:13.6764|INFO|FundooNotesApp.NLog|Collaborator Added Successfully

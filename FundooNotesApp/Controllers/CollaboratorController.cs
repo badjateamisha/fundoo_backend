@@ -20,6 +20,8 @@ namespace FundooNotesApp.Controllers
     [ApiController]
     public class CollaboratorController : ControllerBase
     {
+        NLog log = new NLog();
+
         ICollabBL collabBL;
         private readonly IMemoryCache memoryCache;
         private readonly IDistributedCache distributedCache;
@@ -43,6 +45,7 @@ namespace FundooNotesApp.Controllers
                 var result = collabBL.AddCollaborator(collab,UserID,NoteId);
                 if (result != null)
                 {
+                    log.LogInfo("Collaborator Added Successfully");
                     return this.Ok(new
                     {
                         success = true,
@@ -53,6 +56,7 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Failed to add collaborator");
                     return this.BadRequest(new
                     {
                         success = false,
@@ -95,6 +99,8 @@ namespace FundooNotesApp.Controllers
 
                 if(result != null)
                 {
+                    log.LogInfo("Collaborator are:");
+
                     return Ok(new
                     {
                         success = true,
@@ -104,6 +110,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Error");
+
                     return BadRequest(new
                     {
                         success = false,
@@ -127,6 +135,8 @@ namespace FundooNotesApp.Controllers
                 var result = collabBL.DeleteCollaborator(userId, NoteID, CollaboratorId);
                 if (result != false)
                 {
+                    log.LogInfo("Collaborator Deleted Successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -137,6 +147,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Unable to delete collaborator.");
+
                     return this.BadRequest(new
                     {
                         success = false,
