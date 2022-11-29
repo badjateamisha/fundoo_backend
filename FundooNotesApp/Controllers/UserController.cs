@@ -11,6 +11,8 @@ namespace FundooNotesApp.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
+        NLog nlog = new NLog();
+
         IUserBL userBL;
 
         public UserController(IUserBL userBL)
@@ -27,6 +29,8 @@ namespace FundooNotesApp.Controllers
                 var result = userBL.Registration(user1);
                 if (result != null)
                 {
+                    nlog.LogInfo("Registration done successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -36,6 +40,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    nlog.LogInfo("Registration unsuccessfull");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -58,6 +64,8 @@ namespace FundooNotesApp.Controllers
                 var result = userBL.Login(LoginModel);
                 if (result != null)
                 {
+                    nlog.LogInfo("User logged in successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -67,6 +75,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    nlog.LogInfo("Login unsuccessfull");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -89,6 +99,8 @@ namespace FundooNotesApp.Controllers
                 var result = userBL.forgetPassword(email);
                 if (result != null)
                 {
+                    nlog.LogInfo("Email sent successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -97,6 +109,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    nlog.LogInfo("Email has not sent");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -119,8 +133,10 @@ namespace FundooNotesApp.Controllers
                 var useremail = User.FindFirst(ClaimTypes.Email).Value.ToString();
 
                 var result = userBL.ResetPassword(useremail, password,  confirmpassword);
-                if (result != null)
+                if (result == true)
                 {
+                    nlog.LogInfo("Password reset successfull");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -129,6 +145,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    nlog.LogInfo("Password reset unsuccessfull");
+
                     return this.BadRequest(new
                     {
                         success = false,

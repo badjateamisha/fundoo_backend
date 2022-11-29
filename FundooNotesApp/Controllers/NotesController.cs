@@ -20,7 +20,8 @@ namespace FundooNotesApp.Controllers
     [ApiController]
     public class NotesController : ControllerBase
     {
-        
+        NLog log= new NLog();
+
             INotesBL notesBL;
 
         private readonly IMemoryCache memoryCache;
@@ -45,6 +46,7 @@ namespace FundooNotesApp.Controllers
                     var result = notesBL.AddNotes(note, UserID);
                     if (result != null)
                     {
+                    log.LogInfo("Notes Added Successfully");
                         return this.Ok(new
                         {
                             success = true,
@@ -55,6 +57,7 @@ namespace FundooNotesApp.Controllers
                     }
                     else
                     {
+                    log.LogInfo("Failed to add notes");
                         return this.BadRequest(new
                         {
                             success = false,
@@ -72,7 +75,7 @@ namespace FundooNotesApp.Controllers
             }
 
         [Authorize]
-        [HttpPost("Read")]
+        [HttpGet("Read")]
         public IActionResult ReadNotes()
         {
             try
@@ -81,6 +84,7 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.ReadNotes(userId);
                 if (result != null)
                 {
+                    log.LogInfo("Notes Received:");
                     return Ok(new 
                     {
                         success = true, 
@@ -88,6 +92,9 @@ namespace FundooNotesApp.Controllers
                         data = result 
                     });
                 }
+                else
+                    log.LogInfo("Error in receiving notes!");
+
                 return BadRequest(new 
                 {
                     success = false, 
@@ -110,6 +117,7 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.UpdateNotes(note, NoteID);
                 if (result != null)
                 {
+                    log.LogInfo("Notes Updated Successfully");
                     return this.Ok(new
                     {
                         success = true,
@@ -120,6 +128,7 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Notes Update Unsuccessfull");
                     return this.BadRequest(new
                     {
                         success = false,
@@ -145,6 +154,7 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.DeleteNotes(userId,NoteID);
                 if (result != false)
                 {
+                    log.LogInfo("Notes Deleted Successfully");
                     return this.Ok(new
                     {
                         success = true,
@@ -155,6 +165,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Unable to delete Note.");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -182,6 +194,8 @@ namespace FundooNotesApp.Controllers
                 var output = notesBL.Archive(userID, NoteID);
                 if (output == true)
                 {
+                    log.LogInfo("Note Archived successfully");
+
                     return Ok(new 
                     {
                         success = true,
@@ -190,12 +204,16 @@ namespace FundooNotesApp.Controllers
                 }
                 else if (output == false)
                 {
+                    log.LogInfo("Note UnArchived successfully.");
+
                     return Ok(new 
                     {
                         success = true, 
                         message = "Note UnArchived successfully." 
                     });
                 }
+                log.LogInfo("Task unsuccessful");
+
                 return BadRequest(new 
                 {
                     success = false, 
@@ -219,6 +237,8 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.Pin(userID, NoteID);
                 if (result == true)
                 {
+                    log.LogInfo("Note Pinned Successfully");
+
                     return Ok(new 
                     {
                         success = true, 
@@ -227,12 +247,16 @@ namespace FundooNotesApp.Controllers
                 }
                 else if (result == false)
                 {
+                    log.LogInfo("Note Unpinned successfully.");
+
                     return Ok(new 
                     {
                         success = true, 
                         message = "Note Unpinned successfully." 
                     });
                 }
+                log.LogInfo("Task unsuccessful.");
+
                 return BadRequest(new 
                 {
                     success = false, 
@@ -255,6 +279,8 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.Trash(userID, NoteID);
                 if (result == true)
                 {
+                    log.LogInfo("Note Trashed Successfully");
+
                     return Ok(new
                     {
                         success = true,
@@ -263,12 +289,16 @@ namespace FundooNotesApp.Controllers
                 }
                 else if (result == false)
                 {
+                    log.LogInfo("Note Untrashed successfully.");
+
                     return Ok(new
                     {
                         success = true,
                         message = "Note Untrashed successfully."
                     });
                 }
+                log.LogInfo("Task unsuccessful.");
+
                 return BadRequest(new
                 {
                     success = false,
@@ -292,6 +322,8 @@ namespace FundooNotesApp.Controllers
                 var result = notesBL.Color(NoteID, color);
                 if(result != null)
                 {
+                    log.LogInfo("Note Colored Successfully");
+
                     return Ok(new
                     {
                         success = true,
@@ -300,6 +332,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Note Color change unsuccessful");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -331,6 +365,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Unable to upload image.");
+
                     return BadRequest(new 
                     {
                         success = false, 

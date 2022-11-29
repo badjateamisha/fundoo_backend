@@ -21,6 +21,8 @@ namespace FundooNotesApp.Controllers
     [Authorize]
     public class LabelController : ControllerBase
     {
+        NLog log = new NLog();
+
         private readonly ILabelBL labelBL;
 
         private readonly IMemoryCache memoryCache;
@@ -45,6 +47,7 @@ namespace FundooNotesApp.Controllers
                 var result = labelBL.AddLabel(Name, NoteID,userID);
                 if (result == true)
                 {
+                    log.LogInfo("Label Created succesfully.");
                     return Ok(new
                     {
                         success = true,
@@ -53,6 +56,7 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Create Label Unsuccessful!");
                     return BadRequest(new 
                     {
                         success = false, 
@@ -66,7 +70,7 @@ namespace FundooNotesApp.Controllers
             }
         }
 
-        [HttpPost("Read")]
+        [HttpGet("Read")]
         public IActionResult ReadLabel()
         {
             try
@@ -75,6 +79,8 @@ namespace FundooNotesApp.Controllers
                 var result = labelBL.ReadLabel(userId);
                 if (result != null)
                 {
+                    log.LogInfo("Label Received: ");
+
                     return Ok(new
                     {
                         success = true,
@@ -82,6 +88,8 @@ namespace FundooNotesApp.Controllers
                         data = result
                     });
                 }
+
+                log.LogInfo("Error in receiving labels!");
                 return BadRequest(new
                 {
                     success = false,
@@ -103,6 +111,8 @@ namespace FundooNotesApp.Controllers
                 var result = labelBL.UpdateLabel(name, NoteID);
                 if (result != null)
                 {
+                    log.LogInfo("Label Updated Successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -113,6 +123,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Label Update Unsuccessfull");
+
                     return this.BadRequest(new
                     {
                         success = false,
@@ -136,6 +148,8 @@ namespace FundooNotesApp.Controllers
                 var result = labelBL.DeleteLabel(userId, LabelID);
                 if (result != false)
                 {
+                    log.LogInfo("Label Deleted Successfully");
+
                     return this.Ok(new
                     {
                         success = true,
@@ -146,6 +160,8 @@ namespace FundooNotesApp.Controllers
                 }
                 else
                 {
+                    log.LogInfo("Unable to delete Label.");
+
                     return this.BadRequest(new
                     {
                         success = false,
